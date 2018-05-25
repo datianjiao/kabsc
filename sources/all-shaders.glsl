@@ -184,7 +184,7 @@ void main() {
     float diffuse = 0.5 + 0.5*NdotL;
     float specular = 0.75 * pow(NdotH, 15.0);
 
-    gl_FragColor.rgb = diffuse * mix(color0, color1, tone) + vec3(specular);
+    gl_FragColor.rgb = color0; // diffuse * mix(color0, color1, tone) + vec3(specular);
     gl_FragColor.a = alpha;
 }
 
@@ -215,7 +215,7 @@ void main() {
     float pattern = texture2D(t_pattern, pattern_scale * v_texcoord).r;
     float blur = texture2D(t_blur, v_texcoord).r;
 
-    gl_FragColor.rgb = mix(color0, color1, blur) + vec3(pattern);
+    gl_FragColor.rgb = color0;// mix(color0, color1, blur) + vec3(pattern);
     gl_FragColor.a = 1.0;
 }
 
