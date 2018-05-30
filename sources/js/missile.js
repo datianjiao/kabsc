@@ -17,6 +17,7 @@ var GTW = GTW || {};
         country_keys.push(i);
     }
 
+    // 计算等级
     function compute_ranks(count, rank) {
         country_keys.sort(function (a, b) {
             return count[b] - count[a];
@@ -114,16 +115,6 @@ var GTW = GTW || {};
 
     var N_VERTS_PER_MISSILE = N_STEPS * 8;
     var N_ICONS = N_MISSILES;
-
-
-
-
-
-
-
-
-
-
 
 
     function MissileSystem(env) {
@@ -555,6 +546,7 @@ var GTW = GTW || {};
     };
 
     /// Set parameters for missile system using mode as input
+    // 以模式为输入的导弹系统参数设置
     MissileSystem.prototype.setMode = function (mode) {
         switch (mode) {
             case 'world':

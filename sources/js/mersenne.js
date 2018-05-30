@@ -1,3 +1,4 @@
+// 梅森数
 (function (root, factory) {
     'use strict';
 
