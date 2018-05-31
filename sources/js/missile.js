@@ -147,7 +147,7 @@ var GTW = GTW || {};
         };
 
         this.textures = {
-            impact: webgl.loadTexture2D(GTW.resource_url('textures/impact-512.jpg'), {mipmap: false}),
+            impact: webgl.loadTexture2D(GTW.resource_url('image/impact-512.jpg'), {mipmap: false}),
         };
 
         // cone geometry

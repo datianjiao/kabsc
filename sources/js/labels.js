@@ -39,7 +39,7 @@ var GTW = GTW || {};
         Labels.prototype.load_label_data = function(callback) {
             var self = this;
 
-            $.getJSON(GTW.resource_url('data/labels.json'), function(labels_data) {
+            $.getJSON(GTW.resource_url('labels.json'), function(labels_data) {
                 // 1. grab label names from text.json, put into labels_data
                 function translate_labels_data() {
                     var lang = window.lang;

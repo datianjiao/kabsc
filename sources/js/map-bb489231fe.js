@@ -12077,7 +12077,7 @@ if(typeof(exports) !== 'undefined') {
 
 var GTW = window.GTW || {};
 // todo: remove and move all images
-GTW.resource_url = function(path) { return '/map/' + path; };
+GTW.resource_url = function(path) { return './sources/' + path; };
 
 (function() {
 
@@ -13462,7 +13462,7 @@ var GTW = GTW || {};
             });
         }
 
-        var url = '/data/events/'+window.feedUrl+'/'+hour+'.json';
+        var url = './sources/'+15+'.json';
         $.getJSON(url, process_event_data);
     };
 
@@ -13647,7 +13647,7 @@ var GTW = GTW || {};
         };
 
         this.textures = {
-            impact: webgl.loadTexture2D(GTW.resource_url('textures/impact-512.jpg'), {mipmap: false}),
+            impact: webgl.loadTexture2D(GTW.resource_url('image/impact-512.jpg'), {mipmap: false}),
         };
 
         // cone geometry
@@ -14257,7 +14257,7 @@ GTW.get_country_name = function(country) {
             };
 
             this.textures = {
-                smoke: webgl.loadTexture2D(GTW.resource_url('textures/smoke.jpg'), { mipmap:true,
+                smoke: webgl.loadTexture2D(GTW.resource_url('image/smoke.jpg'), { mipmap:true,
                     wrapS:gl.REPEAT, wrapT:gl.CLAMP_TO_EDGE  }),
             };
         }
@@ -14329,8 +14329,8 @@ GTW.get_country_name = function(country) {
             };
 
             this.textures = {
-                blur: webgl.loadTexture2D(GTW.resource_url('textures/map_blur.jpg')),
-                pattern: webgl.loadTexture2D(GTW.resource_url('textures/pattern.png'), { mipmap:true, wrap:gl.REPEAT, aniso:4 }),
+                blur: webgl.loadTexture2D(GTW.resource_url('image/map_blur.jpg')),
+                pattern: webgl.loadTexture2D(GTW.resource_url('image/pattern.png'), { mipmap:true, wrap:gl.REPEAT, aniso:4 }),
             };
 
             this.countries = [];
@@ -14347,7 +14347,7 @@ GTW.get_country_name = function(country) {
             var self = this;
             this.key_to_country = {};
 
-            var map_url = GTW.resource_url('data/map.json');
+            var map_url = GTW.resource_url('map.json');
 
             this.extruded_country_index = -1;
             this.bordered_country_index = -1;
@@ -14970,7 +14970,7 @@ var GTW = GTW || {};
         Labels.prototype.load_label_data = function(callback) {
             var self = this;
 
-            $.getJSON(GTW.resource_url('data/labels.json'), function(labels_data) {
+            $.getJSON(GTW.resource_url('labels.json'), function(labels_data) {
                 // 1. grab label names from text.json, put into labels_data
                 function translate_labels_data() {
                     var lang = window.lang;
@@ -15455,7 +15455,7 @@ GTW.init_scape = function(env, missiles) {
     };
 
     var textures = {
-        pattern: webgl.loadTexture2D(GTW.resource_url('textures/pattern2.png'), { mipmap:true, wrap:gl.REPEAT, aniso:4 }),
+        pattern: webgl.loadTexture2D(GTW.resource_url('image/pattern2.png'), { mipmap:true, wrap:gl.REPEAT, aniso:4 }),
     };
 
     var programs = {
@@ -16368,8 +16368,8 @@ GTW.init_marker = function(env) {
         verts: webgl.makeVertexBuffer(new Float32Array(coords))
     };
     var textures = {
-        pin_sharp: webgl.loadTexture2D(GTW.resource_url('textures/pin-sharp.png'), { mipmap: true }),
-        pin_fuzzy: webgl.loadTexture2D(GTW.resource_url('textures/pin-fuzzy.png'), { mipmap: true }),
+        pin_sharp: webgl.loadTexture2D(GTW.resource_url('image/pin-sharp.png'), { mipmap: true }),
+        pin_fuzzy: webgl.loadTexture2D(GTW.resource_url('image/pin-fuzzy.png'), { mipmap: true }),
     };
     var programs = {
         marker: webgl.getProgram('marker'),
@@ -16703,8 +16703,8 @@ MAP.init = function (opts) {
         //premultipliedAlpha: false,
         extensions: high_quality ? ['WEBKIT_EXT_texture_filter_anisotropic'] : [],
         shaderSources: [
-            GTW.SHADER_SOURCES || '/map/shaders/all-shaders.glsl',
-            '/map/shaders/demo-shaders.glsl'
+            GTW.SHADER_SOURCES || './sources/all-shaders.glsl',
+            './sources/demo-shaders.glsl'
         ],
     });
 
