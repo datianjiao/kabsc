@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+        }
+    </style>
+</head>
+<body>
+<script src="//cdn.bootcss.com/three.js/92/three.js"></script>
+<script src="./OrbitControls.js"></script>
+<script src="./ThreeCSG.js"></script>
+<script src="./china.js"></script>
+<script>
+    var scene = new THREE.Scene();
+    var camera = new THREE.PerspectiveCamera( 75, window.innerWidth/window.innerHeight, 0.1, 1000 );
+    var controls = new THREE.OrbitControls( camera );
+
+    var renderer = new THREE.WebGLRenderer();
+    renderer.setSize( window.innerWidth, window.innerHeight );
+    document.body.appendChild( renderer.domElement );
+
+    var light = new THREE.PointLight( 0xffffff, 1, 100 );
+    light.position.set( 0, 0, 6 );
+    scene.add( light );
+    var light1 = new THREE.PointLight( 0xffffff, 1, 100 );
+    light1.position.set( 0, 0, -6 );
+    scene.add( light1 );
+
+    var geometry = new THREE.BoxGeometry( 1, 1, 1 );
+    var material = new THREE.MeshBasicMaterial( {color: 0x00ff00} );
+    var cube = new THREE.Mesh( geometry, material );
+    scene.add( cube );
+
+    var start_time = (new Date()).getTime();
+
+    var sphere_geometry_1 =new THREE.ConeGeometry( 0.8, 1, 16 );
+    var sphere_mesh_1 = new THREE.Mesh( sphere_geometry_1 );
+    sphere_mesh_1.position.y = -0.5
+    var sphere_bsp_1 = new ThreeBSP( sphere_mesh_1 );
+
+    var sphere_geometry_2 = new THREE.SphereGeometry( 0.50, 32, 32 );
+    var sphere_mesh_2 = new THREE.Mesh( sphere_geometry_2 );
+    var sphere_bsp_2 = new ThreeBSP( sphere_mesh_2 );
+
+    // var intersect_bsp = sphere_bsp_1.intersect( sphere_bsp_2 );
+    var intersect_bsp = sphere_bsp_2.union( sphere_bsp_1 );
+
+    var result = intersect_bsp.toMesh( new THREE.MeshLambertMaterial({
+        shading: THREE.SmoothShading,
+        map: new THREE.TextureLoader().load('./tx.png'),
+        wireframe: true
+    }));
+
+    result.position.x = 1;
+    result.geometry.computeVertexNormals();
+    scene.add( result );
+
+    console.log(result)
+    console.log( 'Example 3: ' + ((new Date()).getTime() - start_time) + 'ms' );
+
+    camera.position.z = 2;
+
+    var animate = function () {
+        requestAnimationFrame( animate );
+        controls.update()
+        renderer.render( scene, camera );
+    };
+
+    animate();
+</script>
+</body>
+</html>
