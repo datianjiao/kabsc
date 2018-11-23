@@ -16,5 +16,8 @@
   "bugs": {
     "url": "https://github.com/datianjiao/kabsc/issues"
   },
+  "files": [
+    "sources/"
+  ],
   "homepage": "https://github.com/datianjiao/kabsc#readme"
 }
