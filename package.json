@@ -1,0 +1,20 @@
+{
+  "name": "kabsc",
+  "version": "1.0.0",
+  "description": "",
+  "main": "OrbitControls.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+	"version": "conventional-changelog -p angular -i CHANGELOG.md -s -r 0 && git add CHANGELOG.md"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/datianjiao/kabsc.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/datianjiao/kabsc/issues"
+  },
+  "homepage": "https://github.com/datianjiao/kabsc#readme"
+}
