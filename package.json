@@ -5,8 +5,8 @@
   "main": "OrbitControls.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-	"version": "conventional-changelog -p angular -i CHANGELOG.md -s -r 0 && git add CHANGELOG.md",
-	"release": "conventional-github-releaser -p angular"
+    "version": "conventional-changelog -p angular -i CHANGELOG.md -s -r 0 && git add CHANGELOG.md",
+    "release": "conventional-github-releaser -p angular"
   },
   "repository": {
     "type": "git",
@@ -20,5 +20,13 @@
   "files": [
     "sources/"
   ],
-  "homepage": "https://github.com/datianjiao/kabsc#readme"
+  "homepage": "https://github.com/datianjiao/kabsc#readme",
+  "devDependencies": {
+    "cz-conventional-changelog": "^2.1.0"
+  },
+  "config": {
+    "commitizen": {
+      "path": "./node_modules/cz-conventional-changelog"
+    }
+  }
 }
