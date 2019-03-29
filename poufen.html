@@ -11,27 +11,30 @@
     </style>
 </head>
 <body>
+<div id="viewport"></div>
 <script src="//cdn.bootcss.com/three.js/92/three.js"></script>
-<script src="./delaunator.js"></script>
+<!--<script src="./delaunator.js"></script>-->
 <script src="./OrbitControls.js"></script>
 <script src="./earcut.js"></script>
-<script src="./world.geo.js"></script>
+<script src="./china.js"></script>
+<!--<script src="./world.geo.js"></script>-->
 <script src="./ThreeCSG.js"></script>
 <script>
+
     var scene = new THREE.Scene();
     var camera = new THREE.PerspectiveCamera( 75, window.innerWidth/window.innerHeight, 0.1, 1000 );
-    var controls = new THREE.OrbitControls( camera );
 
     var renderer = new THREE.WebGLRenderer({antialias: true});
     renderer.setSize( window.innerWidth, window.innerHeight );
     document.body.appendChild( renderer.domElement )
+    var controls = new THREE.OrbitControls( camera,  renderer.domElement  );
 
     var light = new THREE.PointLight( 0xffffff, 2, 100 );
     light.position.set( 0, 0, -50 );
     scene.add( light );
 
     var geometry = new THREE.SphereGeometry( 9.3, 64, 64 );
-    var material = new THREE.MeshBasicMaterial( {color: 0xffff00} );
+    var material = new THREE.MeshBasicMaterial( {color: 0xaaaaa} );
     var sphere = new THREE.Mesh( geometry, material );
     scene.add( sphere );
 
@@ -52,19 +55,25 @@
 
     }
 
-     for(var a=0;a<china.features[0].geometry.coordinates.length;a++) {
-         var arr = china.features[0].geometry.coordinates[a][0]
-         if (arr.length < 3) {
-             continue
-         } else if(arr.length % 3 !== 0) {
-             if (arr.length % 3 === 1) {
-                 arr.pop()
-             } else {
-                 arr.pop()
-                 arr.pop()
-             }
-         }
-         var data = earcut.flatten([arr]);
+     // for(var a=0;a<china.features[0].geometry.coordinates.length;a++) {
+     //     var arr = china.features[0].geometry.coordinates;
+     //     console.log(arr)
+         // if (arr.length < 3) {
+         //     console.log(0)
+         //     continue
+         // } else if(arr.length % 3 !== 0) {
+         //     if (arr.length % 3 === 1) {
+         //         arr.pop()
+         //     } else {
+         //         arr.pop()
+         //         arr.pop()
+         //     }
+         // }
+    var arr = [];
+    for(var a = 0; a<china.features[0].geometry.coordinates.length;a++) {
+        arr.push(china.features[0].geometry.coordinates[a])
+    }
+         var data = earcut.flatten([[china.features[0].geometry.coordinates]]);
          var delaunay = {}
          delaunay.triangles = earcut(data.vertices, data.holes, data.dimensions);
          // const delaunay = Delaunator.from(arr);
@@ -101,30 +110,28 @@
          // var material = new THREE.MeshBasicMaterial( {
          //     vertexColors: THREE.VertexColors,
          //     side: THREE.DoubleSide,
-         //     // wireframe: true
+         //     wireframe: true
          // } );
          // var mesh = new THREE.Mesh( geometry, material ) ;
 
          var sphere_mesh_1 = new THREE.Mesh( geometry );
          var sphere_bsp_1 = new ThreeBSP( sphere_mesh_1 );
 
-
-         // var intersect_bsp = sphere_bsp_1.intersect( sphere_bsp_2 );
          var intersect_bsp = sphere_bsp_1.intersect( sphere_bsp_2 );
 
          var result = intersect_bsp.toMesh( new THREE.MeshBasicMaterial({
              // shading: THREE.SmoothShading,
-             map: new THREE.TextureLoader().load('./tx.png'),
+             map: new THREE.TextureLoader().load('./texture.png'),
              // vertexColors: THREE.VertexColors,
              // color: 0xff0000,
-             wireframe: true
+             // wireframe: true
          }));
-         console.log(result)
+         // console.log(result);
          scene.add(result)
-     }
+     // }
 
-    // camera.position.x = 180;
-    // camera.position.y = 40;
+    camera.position.x = 180;
+    camera.position.y = 40;
     camera.position.z = 20
 
     var animate = function () {
